@@ -471,8 +471,8 @@ INDENT count of spaces are added at the start of every line."
   (let-alist (code-review-db--pullreq-raw-infos)
     (let* ((project-names (-map
                            (lambda (p)
-                             (a-get-in p (list 'project 'name)))
-                           .projectCards.nodes))
+                             (a-get-in p (list 'title)))
+                           .projectsV2.nodes))
            (projects (if project-names
                          (string-join project-names ", ")
                        (propertize "None yet" 'font-lock-face 'magit-dimmed))))

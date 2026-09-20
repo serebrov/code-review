@@ -191,6 +191,11 @@ https://github.com/wandersoncferreira/code-review#configuration"))
           login
         }
       }
+      projectsV2(first: 10) {
+        nodes {
+          title
+        }
+      }
       suggestedReviewers {
         reviewer {
           name
@@ -364,6 +369,11 @@ https://github.com/wandersoncferreira/code-review#configuration"))
         reviewer {
           name
           login
+        }
+      }
+      projectsV2(first: 10) {
+        nodes {
+          title
         }
       }
       commits(first: 100) {
