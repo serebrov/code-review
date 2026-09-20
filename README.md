@@ -1,3 +1,43 @@
+# Fork Note
+
+This is a fork of the https://github.com/wandersoncferreira/code-review package with
+https://github.com/wandersoncferreira/code-review/pull/246 fix merged and some
+other fixes applied to make it work.
+
+It can be installed like this from Github:
+
+```elisp
+(use-package code-review
+  :init
+  ;; use forge's keys for authentication
+  (setq code-review-auth-login-marker 'forge)
+  ;; this is only needed for debugging
+  (setq deferred:debug-on-signal t)
+  :vc (
+       :url "https://github.com/serebrov/code-review"
+       :branch "master"
+       :rev :newest
+       ))
+```
+
+To update:
+- `M-x package-vc-upgrade RET code-review RET`
+- Restart Emacs to make sure in-memory code is updated.
+
+Run `M-x code-review-start RET [PR URL] RET` to start reviewing a PR.
+
+Alternatively, clone the repository locally and install like this:
+
+```elisp
+(use-package code-review
+  :load-path "~/code/code-review"
+  :init
+  (setq code-review-auth-login-marker 'forge)
+  (setq deferred:debug-on-signal t))
+```
+
+# Original Readme
+
 [![GPL v3](https://img.shields.io/badge/license-GPL_v3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
 [![MELPA](https://melpa.org/packages/code-review-badge.svg)](https://melpa.org/#/code-review)
 ![Tests](https://github.com/wandersoncferreira/code-review/actions/workflows/ci.yml/badge.svg)
