@@ -29,6 +29,10 @@
 ;;; Code:
 
 (require 'ghub)
+;; The code relies on the `ghub-graphql` function that was replaced with
+;; `ghub-query`. The (for now available) `ghub-legacy` gives access to
+;; the old function.
+(require 'ghub-legacy)
 (require 'deferred)
 (require 'code-review-interfaces)
 (require 'code-review-db)
