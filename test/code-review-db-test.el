@@ -1,4 +1,4 @@
-;;; code-review-db-test.el --- Test our utility functions
+;;; code-review-db-test.el --- Test our utility functions -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
