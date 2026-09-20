@@ -1,4 +1,4 @@
-;;; code-review-section-test.el --- Test our section functions
+;;; code-review-section-test.el --- Test our section functions -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

@@ -1,4 +1,4 @@
-;;; code-review-comment-test.el --- Test our utility functions
+;;; code-review-comment-test.el --- Test our utility functions -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

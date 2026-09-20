@@ -1,4 +1,4 @@
-;;; code-review-parse-hunk-test.el --- Test parse diff functions
+;;; code-review-parse-hunk-test.el --- Test parse diff functions -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;;
