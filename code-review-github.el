@@ -807,7 +807,7 @@ Optionally ask for the FALLBACK? query."
           (let ((graphql-res (ghub-graphql query
                                            `((repo_owner . ,(oref github owner))
                                              (repo_name . ,(oref github repo))
-                                             (cursor . ,cursor))
+                                             (cursor . ,(or cursor :null)))
                                            :auth code-review-auth-login-marker
                                            :host code-review-github-graphql-host)))
             (let-alist graphql-res
@@ -831,7 +831,7 @@ Optionally ask for the FALLBACK? query."
         (pr-id (a-get (oref github raw-infos) 'id)))
     (ghub-graphql query
                   `((input . ((pullRequestId . ,pr-id)
-                              (userIds . ,user-ids))))
+                              (userIds . ,(vconcat user-ids)))))
                   :auth code-review-auth-login-marker
                   :host code-review-github-graphql-host
                   :callback (lambda (&rest _)
