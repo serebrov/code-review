@@ -543,10 +543,9 @@ Optionally ask for the FALLBACK? query."
     (message "Sending new labels...")
     (funcall req-fn url
              nil
-             :payload (a-alist 'labels (or (-map (lambda (x)
-                                                   (a-get x 'name))
-                                                 (oref github labels))
-                                           []))
+             :payload (a-alist 'labels (vconcat (-map (lambda (x)
+                                                        (a-get x 'name))
+                                                      (oref github labels))))
              :auth code-review-auth-login-marker
              :host code-review-github-host
              :errorback #'code-review-github-errback
@@ -579,9 +578,9 @@ Optionally ask for the FALLBACK? query."
              nil
              :auth code-review-auth-login-marker
              :host code-review-github-host
-             :payload (a-alist 'assignees (-map (lambda (it)
-                                                  (a-get it 'login))
-                                                (oref github assignees)))
+             :payload (a-alist 'assignees (vconcat (-map (lambda (it)
+                                                           (a-get it 'login))
+                                                         (oref github assignees))))
              :errorback #'code-review-github-errback
              :callback (lambda (&rest _) (funcall callback))))
 
@@ -718,7 +717,7 @@ Optionally ask for the FALLBACK? query."
       (deferred:parallel
         (-map
          (lambda (reply)
-           (lambda ()
+           (lambda (_)
              (ghub-post (format "/repos/%s/%s/pulls/%s/comments/%s/replies"
                                 (oref pr owner)
                                 (oref pr repo)
@@ -759,15 +758,17 @@ Optionally ask for the FALLBACK? query."
                       (a-assoc payload 'body (oref review feedback))
                     payload))
          (payload (if (oref review local-comments)
-                      (a-assoc payload 'comments (--sort
-                                                  (< (a-get it 'position)
-                                                     (a-get other 'position))
-                                                  (-map
-                                                   (lambda (c)
-                                                     `((path . ,(oref c path))
-                                                       (position . ,(oref c position))
-                                                       (body . ,(oref c body))))
-                                                   (oref review local-comments))))
+                      ;; `json-serialize' encodes only vectors as JSON arrays.
+                      (a-assoc payload 'comments (vconcat
+                                                  (--sort
+                                                   (< (a-get it 'position)
+                                                      (a-get other 'position))
+                                                   (-map
+                                                    (lambda (c)
+                                                      `((path . ,(oref c path))
+                                                        (position . ,(oref c position))
+                                                        (body . ,(oref c body))))
+                                                    (oref review local-comments)))))
                     payload)))
     (ghub-post (format "/repos/%s/%s/pulls/%s/reviews"
                        (oref pr owner)

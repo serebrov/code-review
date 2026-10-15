@@ -1792,9 +1792,9 @@ If you want to provide a MSG for the end of the process."
         (progress-reporter-update progress 1)
         (deferred:$
           (deferred:parallel
-            (lambda () (code-review-diff-deferred obj))
-            (lambda () (code-review-infos-deferred obj))
-            (lambda () (code-review-infos-deferred obj t)))
+            (lambda (_) (code-review-diff-deferred obj))
+            (lambda (_) (code-review-infos-deferred obj))
+            (lambda (_) (code-review-infos-deferred obj t)))
           (deferred:nextc it
             (lambda (x)
               (when code-review-log-raw-request-responses

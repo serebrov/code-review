@@ -419,7 +419,7 @@ Optionally sets FALLBACK? to get minimal query."
       (deferred:parallel
         (-map
          (lambda (reply)
-           (lambda ()
+           (lambda (_)
              (glab-post (format "/v4/projects/%s/merge_requests/%s/discussions/%s/notes"
                                 (code-review-gitlab--project-id pr)
                                 (oref pr number)
